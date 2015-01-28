@@ -1,0 +1,103 @@
+{% load guoku %}
+
+{% for row in messages %}
+{#    {{ row.action_object_content_type.model }}#}
+    {% if row.action_object_content_type.model == 'user_follow' %}
+        <div class="media message">
+            <div class="pull-left message-icon">
+                <i class="fa fa-user fa-2x media-object"></i>
+            </div>
+            <div class="media-body">
+                <p class="media-heading">
+                    <img src="{{ row.actor.profile.avatar_url|resize:'50' }}" width="25" height="25">
+                    <a target="_blank" href="{% url 'web_user_entity_like' row.actor.id %}">{{ row.actor.profile.nickname }}</a>&nbsp; <strong>开始关注你了</strong>
+                </p>
+
+                <p class="message-time">{{ row.timestamp|date:'Y-m-d H:i:s' }}</p>
+            </div>
+        </div>
+    {% elif row.action_object_content_type.model == 'selection_entity' %}
+        <div class="media message">
+            <div class="pull-left message-icon">
+                <i class="fa fa-star fa-2x media-object"></i>
+            </div>
+            <div class="media-body">
+                <p class="media-heading">你添加的商品被收录精选</p>
+                <p>
+                    <a target="_blank" href="{% url 'web_entity_detail' row.target.entity_hash %}">
+                        <img class="img-responsive message-image" src="{{ row.target.chief_image|resize:'240' }}" width="120" height="120">
+                    </a>
+                </p>
+                <p class="message-time">{{ row.timestamp|date:'Y-m-d H:i:s' }}</p>
+            </div>
+        </div>
+    {% elif row.action_object_content_type.model == 'note' %}
+        <div class="media message">
+            <div class="pull-left message-icon">
+                <i class="fa fa-comment fa-2x media-object"></i>
+            </div>
+            <div class="media-body">
+                <p class="media-heading"><a target="_blank" href="{% url 'web_user_entity_like' row.actor.id %}">{{ row.actor.profile.nickname }}</a>&nbsp; 点评了你推荐的商品</p>
+                <p>
+                    <a target="_blank" href="{% url 'web_entity_detail' row.target.entity_hash %}"><img class="img-responsive message-image"  src="{{ row.target.chief_image|resize:'240' }}" width="120" height="120"></a>
+                </p>
+                <p>{{ row.action_object.note }}</p>
+                <p class="message-time">{{ row.timestamp|date:'Y-m-d H:i:s' }}</p>
+            </div>
+        </div>
+    {% elif row.action_object_content_type.model == 'note_poke' %}
+        <div class="media message">
+            <div class="pull-left message-icon">
+                <i class="fa fa-thumbs-up fa-2x media-object"></i>
+            </div>
+            <div class="media-body">
+                <p class="media-heading">
+                    <a target="_blank" href="{% url 'web_user_entity_like' row.actor.id %}">{{ row.actor.profile.nickname }}</a>&nbsp; 赞了你对 <strong>{{ row.target.entity.title }}</strong> 的点评
+                </p>
+                <p>
+                    <a target="_blank" href="{% url 'web_entity_detail' row.target.entity.entity_hash %}">
+                        <img class="img-responsive message-image" src="{{ row.target.entity.chief_image|resize:'240' }}" width="120" height="120">
+                    </a>
+                </p>
+                <p class="message-time">{{ row.timestamp|date:'Y-m-d H:i:s' }}</p>
+            </div>
+        </div>
+    {% elif row.action_object_content_type.model == 'note_comment' %}
+        <div class="media message">
+            <div class="pull-left message-icon">
+                <i class="fa fa-comment fa-2x media-object"></i>
+            </div>
+                <div class="media-body">
+{#                            {{ message.content }}#}
+                    <p class="media-heading"><a href="{% url 'web_user_entity_like' row.actor.id %}">{{ row.actor.profile.nickname }}</a>&nbsp; 回复了你的点评</p>
+                    <p>{{ row.target.note }}</p>
+                    <div class="media message">
+                        <a class="pull-left" target="_blank" href="{% url 'web_entity_detail' row.target.entity.entity_hash %}">
+                            <img class="media-object message-image" src="{{ row.target.entity.chief_image|resize:'240' }}" width="120" height="120">
+                        </a>
+                        <div class="media-body">
+                            <strong class="media-heading">回复</strong>
+                            <p>{{ row.action_object.content }}</p>
+                        </div>
+                     </div>
+                            <p class="message-time">{{ row.timestamp|date:'Y-m-d H:i:s' }}</p>
+                </div>
+        </div>
+    {% elif row.action_object_content_type.model == 'entity_like' %}
+        <div class="media message">
+            <div class="pull-left message-icon">
+                <i class="fa fa-heart fa-2x media-object"></i>
+            </div>
+            <div class="media-body">
+                <p class="media-heading"><a target="_blank" href="{% url 'web_user_entity_like' row.actor.id %}"><strong>{{ row.actor.profile.nickname }}</strong></a>&nbsp;喜爱了你添加的商品</p>
+                <p>
+                    <a target="_blank" href="{% url 'web_entity_detail' row.target.entity_hash %}">
+                        <img class="img-responsive message-image" src="{{ row.target.chief_image|resize:'240' }}" width="120" height="120">
+                    </a>
+                </p>
+                <p class="message-time">{{ row.timestamp|date:'Y-m-d H:i:s' }}</p>
+            </div>
+        </div>
+    {% endif %}
+    <div class="line timestr" timestamp="{{ row.timestamp|timestamp }}"></div>
+{% endfor %}
