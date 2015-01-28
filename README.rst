@@ -2,15 +2,13 @@
 notifications
 =====
 
-notifications is a simple Django app to conduct Web-based polls. For each
-question, visitors can choose between a fixed number of answers.
+果库 notifications 是一个扩展 Django 开发消息系统
 
-Detailed documentation is in the "docs" directory.
 
 Quick start
 -----------
 
-1. Add "polls" to your INSTALLED_APPS setting like this::
+1. Add "notifications" to your INSTALLED_APPS setting like this::
 
       INSTALLED_APPS = (
           ...
