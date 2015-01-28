@@ -26,7 +26,7 @@ setup(
     license='BSD License',  # example license
     description='A  Django app to notifications.',
     # long_description=README,
-    zip_safe=False,
+    zip_safe=True,
     url='http://www.guoku.com/',
 
     author='jiaxin',
