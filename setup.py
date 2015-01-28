@@ -15,6 +15,7 @@ setup(
     ],
     packages=[
         'notifications',
+        'notifications.urls',
         'notifications.templatetags',
     ],
     package_data={'notifications': [
@@ -25,7 +26,7 @@ setup(
     license='BSD License',  # example license
     description='A  Django app to notifications.',
     # long_description=README,
-    zip_safe=True,
+    zip_safe=False,
     url='http://www.guoku.com/',
 
     author='jiaxin',
