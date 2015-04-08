@@ -1,7 +1,7 @@
 {% load guoku %}
 
 {% for row in messages %}
-{#    {{ row.action_object_content_type.model }}#}
+    {{ row.action_object }}
     {% if row.action_object_content_type.model == 'user_follow' %}
         <div class="media message">
             <div class="pull-left message-icon">
